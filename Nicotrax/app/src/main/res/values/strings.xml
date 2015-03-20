@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Nicotrax</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- Login Activity -->
+    <string name="title_activity_login">Nicotrax</string>
+    <string name="signup_text">Sign Up</string>
+    <string name="validation_error_intro">Please</string>
+    <string name="validation_error_invalid_password">enter a password (at least 8 characters)</string>
+    <string name="validation_error_invalid_email">enter a valid email address</string>
+    <string name="validation_error_blank_username">enter a username</string>
+    <string name="validation_error_join">, and</string>
+    <string name="validation_error_end">.</string>
+    <string name="progress_signup">Signing you up&#8230;</string>
+
+
+    <string name="hello_world">Hello world!</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_activity_smoker_start_smoking">SmokerStartSmokingActivity</string>
+    <string name="title_activity_quit_smoking">QuitSmokingActivity</string>
+    <string name="title_activity_still_smoking_question">StillSmokingQuestionActivity</string>
+    <string name="title_activity_how_many_cigarettes">HowManyCigarettesActivity</string>
+    <string name="title_activity_pay_pack_cigarettes">PayPackCigarettesActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_welcome_screen">WelcomeScreenActivity</string>
+    <string name="AlreadyAccountButton"><u>Already Have An Account? Sign In!</u></string>
+    <string name="title_activity_preloader">PreloaderActivity</string>
+    <string name="title_activity_test">TestActivity</string>
+
+    <string name="title_activity_login_screen">LoginScreenActivity</string>
+
+    <string name="title_activity_onboarding">Welcome to Nicotrax!</string>
+
+
+
+
+</resources>
