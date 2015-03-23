@@ -3,6 +3,7 @@ package com.nicotrax.nicotrax.fragment.dashBoard;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -62,7 +63,7 @@ public class PieFragment extends Fragment {
         mChart.setCenterTextTypeface(Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf"));
 
         mChart.setHoleRadius(65f);
-        mChart.setTransparentCircleRadius(30f);
+        //mChart.setTransparentCircleRadius(65f);
 
         mChart.setDescription("");
 
@@ -79,13 +80,13 @@ public class PieFragment extends Fragment {
 
         // add a selection listener
         //mChart.setOnChartValueSelectedListener(this);
-        // mChart.setTouchEnabled(false);
+        //mChart.setTouchEnabled(false);
 
         //Initially Count of Cigarettes is constant as 7
         mChart.setCenterText("7");
         mChart.setCenterTextSize(30f);
         //Since we have only two slices, count= 1 as range starts from 0
-        setData(1,10,20);
+        setData(1,7,20);
 
         mChart.animateXY(1500, 1500);
         // mChart.spin(2000, 0, 360);
@@ -96,6 +97,7 @@ public class PieFragment extends Fragment {
         l.setYEntrySpace(5f);
 
         l.setEnabled(false);
+
 
         //OnClickListeners for increment and decrement buttons
         inc_button.setOnClickListener(new View.OnClickListener() {
@@ -151,8 +153,8 @@ public class PieFragment extends Fragment {
         //    colors.add(c);
         //A1F7D3 E9E9E9
 
-       for (int c : ColorTemplate.JOYFUL_COLORS)
-           colors.add(c);
+       //for (int c : ColorTemplate.JOYFUL_COLORS)
+        //   colors.add(c);
 
        // for (int c : ColorTemplate.COLORFUL_COLORS)
        //     colors.add(c);
@@ -160,8 +162,15 @@ public class PieFragment extends Fragment {
         //for (int c : ColorTemplate.LIBERTY_COLORS)
           //  colors.add(c);
 
-        for (int c : ColorTemplate.PASTEL_COLORS)
+
+        /*for (int c : ColorTemplate.PASTEL_COLORS) {
+            System.out.println("--->color " + c);
             colors.add(c);
+        }*/
+
+        Resources res=getResources();
+        colors.add(res.getColor(R.color.sea_green));
+        colors.add(res.getColor(R.color.grey));
 
         colors.add(ColorTemplate.getHoloBlue());
 

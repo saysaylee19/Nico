@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Nicotrax</string>
 
+    <!-- Navigation Menu Titles -->
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section3">Log Out</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -15,14 +16,35 @@
     <!-- Login Activity -->
     <string name="title_activity_login">Nicotrax</string>
     <string name="signup_text">Sign Up</string>
-    <string name="validation_error_intro">Please</string>
-    <string name="validation_error_invalid_password">enter a password (at least 8 characters)</string>
-    <string name="validation_error_invalid_email">enter a valid email address</string>
-    <string name="validation_error_blank_username">enter a username</string>
-    <string name="validation_error_join">, and</string>
-    <string name="validation_error_end">.</string>
+    <string name="login_text">Log In</string>
     <string name="progress_signup">Signing you up&#8230;</string>
+    <string name="progress_login">Logging you in&#8230;</string>
+    <string name="toggle_to_login_text">Already have an account? Log In!</string>
+    <string name="toggle_to_signup_text">Don\'t have an account? Sign up!</string>
+    <string name="validation_error_username">Please enter a username.</string>
+    <string name="validation_error_password">Please enter a valid password (must be at least 8 characters).</string>
+    <string name="validation_error_email">Please enter a valid email address.</string>
 
+    <!-- BLE Activity -->
+    <string name="title_activity_ble">BLE Connectivity Test</string>
+
+    <string name="button_scan">Scan</string>
+    <string name="connect">Connect</string>
+    <string name="title_device_list">Device List</string>
+    <string name="device">Device</string>
+    <string name="header">Available BLE Devices</string>
+    <string name="disconnected">Device is not connected</string>
+    <string name="control">Done</string>
+    <string name="bt_not_supported">Bluetooth is not supported</string>
+    <string name="ble_not_supported">BLE is not supported</string>
+    <string name="bt_on">Bluetooth was turned  on</string>
+    <string name="bt_not_on">Bluetooth was not turned on</string>
+    <string name="app_closing">Exiting BLE SensorTag app</string>
+    <string-array name="device_filter"><item>SensorTag</item><item>SensorTag2</item></string-array>
+    <string name="nodevice">There are no SensorTags advertising within range. Please push the side button on the SensorTag to start advertising.</string>
+    <string name="scan_advice">The Android device is not scanning. Please tap \'Scan\' to scan for SensorTags.</string>
+    <string name="bt_adapter_disable">Disable Bluetooth adapter</string>
+    <string name="bt_adapter_reset">Reset Bluetooth adapter</string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -43,7 +65,28 @@
     <string name="title_activity_login_screen">LoginScreenActivity</string>
 
     <string name="title_activity_onboarding">Welcome to Nicotrax!</string>
+    <string name="title_activity_profile_creation">ProfileCreationActivity</string>
 
+    <string name="gender">Gender</string>
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <!-- Profile validations -->
+    <string name="validation_error_blank_firstname">Enter a First Name</string>
+    <string name="validation_error_blank_lastname">Enter a Last Name</string>
+    <string name="validation_error_blank_dob">Enter a Date of Birth</string>
+
+    <!--Profile Display Constant Strings-->
+    <string name="started_smoking">You started smoking on</string>
+    <string name="before_average">Before the program,you smoked an average of</string>
+    <string name="cig_a_day">cigarettes a day.</string>
+    <string name="you_pay">You pay</string>
+    <string name="pack_of_cig">for a pack of cigarettes.</string>
+    <string name="quit_goal">Quit goal</string>
+    <string name="savings_goal">Savings goal</string>
+    <string name="nico_user">Nicotrax user since</string>
 
 
 

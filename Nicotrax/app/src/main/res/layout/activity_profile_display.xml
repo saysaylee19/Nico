@@ -1,0 +1,269 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.nicotrax.nicotrax.Profile_Page_Display"
+    android:id="@+id/Profile_Page">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nancy Drew"
+        android:id="@+id/nico_user_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nico_user"
+        android:id="@+id/nico_user_tv"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/nico_user_name"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="10pt"
+        android:layout_marginLeft="10dp"
+        android:text="03/22/2015"
+        android:id="@+id/nico_user_strt_date"
+        android:layout_below="@+id/nico_user_name"
+        android:layout_toEndOf="@+id/nico_user_name" />
+
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/photo"
+        android:src = "@drawable/circle"
+        android:layout_below="@+id/nico_user_name"
+        android:layout_alignParentEnd="true" />
+
+
+        <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="80%"
+         android:background="@drawable/circle"
+         android:gravity="center"
+         android:id="@+id/progress_precent"
+         android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_above="@+id/tableLayout2"
+            android:layout_toStartOf="@+id/photo" />
+
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tableLayout2"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/photo"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quit_goal"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/quit_goal"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quit_goal"
+                android:id="@+id/quit_goal_tv"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageView5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="March 12th ,2016"
+                android:id="@+id/quit_goal_value_tv"
+                android:layout_centerVertical="true"
+                android:layout_alignStart="@+id/textView6"
+                android:textColor="@color/background_color" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:id="@+id/progressBar_quit"
+                />
+            </TableRow>
+        <TableRow
+            android:id="@+id/tRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/saving_goal"
+                android:src="@drawable/dollars"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/savings_goal"
+                android:id="@+id/saving_goal_tv"
+               />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$815/$1200"
+                android:id="@+id/saving_goal_val_tv"
+                android:textColor="@color/background_color" />
+
+         </TableRow>
+        <TableRow
+            android:id="@+id/tRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_span="3"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar_save"
+                />
+        </TableRow>
+
+</TableLayout>
+
+
+
+
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tableLayout1"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tableLayout2"
+        android:layout_marginTop="10dp"
+        android:background="@color/background_color"
+        android:layout_height="wrap_content" >
+
+    <!-- 2 columns -->
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip" >
+        <TextView
+            android:id="@+id/started_smoking_tv"
+            android:text="@string/started_smoking"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/started_smoking_value_tv"
+            android:text="May 1st,2008"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:textColor="@color/white_text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+            <TextView
+                android:id="@+id/before_avg_tv"
+
+                android:text="@string/before_average"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/before_avg_value_tv"
+                android:text="12"
+                android:layout_gravity="center"
+                android:textColor="@color/white_text"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+            <TextView
+                android:id="@+id/cig_a_day"
+                android:text="@string/cig_a_day"
+                android:layout_width="0dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+            <TextView
+                android:id="@+id/you_pay_tv"
+                android:text="@string/you_pay"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/you_pay_value_tv"
+                android:text="$8.50"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:textColor="@color/white_text"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/cig_pack_tv"
+                android:text="@string/pack_of_cig"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+            <Button
+                android:id="@+id/edit_profile_button"
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@drawable/rounding_green"
+                android:text="Edit"
+                android:layout_height="30dp" />
+
+            </TableRow>
+</TableLayout>
+
+    <!--
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:id="@+id/imageView7"
+            android:layout_below="@+id/imageView6"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/rectangle"
+            android:layout_alignParentEnd="true" /> -->
+    />
+</RelativeLayout>

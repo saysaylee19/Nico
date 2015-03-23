@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.parse.ParseUser;
 
 import com.nicotrax.nicotrax.fragment.NavigationDrawerFragment;
 import com.nicotrax.nicotrax.R;
@@ -72,6 +75,12 @@ public class DashboardActivity extends ActionBarActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
+
+        // if selected item 3 - "Log Out," log out the Parse user
+        if(position == 2) {
+            Log.i("tag", "Signing Out");
+            ParseUser.logOut();
+        }
     }
 
     public void onSectionAttached(int number) {
