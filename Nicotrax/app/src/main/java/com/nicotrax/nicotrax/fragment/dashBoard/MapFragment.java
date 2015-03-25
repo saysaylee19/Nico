@@ -17,17 +17,18 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        View rootView=inflater.inflate(R.layout.fragment_map, container, false);
+        TextView t=(TextView)rootView.findViewById(R.id.textset);
+        System.out.println("Before tv = "+t.getText());
+        t.setText("Populate Maps Here");
+        return rootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
-        TextView t=(TextView)getActivity().findViewById(R.id.textset);
-        System.out.println("Before tv = "+t.getText());
-        t.setText("Populate Maps Here");
-        System.out.println("Before tv = "+t.getText());
+
     }
 
 }

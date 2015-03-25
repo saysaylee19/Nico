@@ -36,19 +36,10 @@ public class GraphFragment extends Fragment implements OnChartGestureListener, O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_graph, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onActivityCreated(savedInstanceState);
-
-        //tvX = (TextView) getActivity().findViewById(R.id.tvXMax);
-        //tvY = (TextView) getActivity().findViewById(R.id.tvYMax);
+        View rootView=inflater.inflate(R.layout.fragment_graph, container, false);
 
         //Actual Graph Chart object
-        mChart = (LineChart) getActivity().findViewById(R.id.chart1);
+        mChart = (LineChart) rootView.findViewById(R.id.chart2);
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
 
@@ -75,10 +66,9 @@ public class GraphFragment extends Fragment implements OnChartGestureListener, O
         // set an alternative background color
         mChart.setBackgroundColor(Color.WHITE);
 
-
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
-        MyMarkerView mv = new MyMarkerView(getActivity(), R.layout.custom_marker_view);
+        MyMarkerView mv = new MyMarkerView(rootView.getContext(), R.layout.custom_marker_view);
 
         // set the marker to the chart
         mChart.setMarkerView(mv);
@@ -108,20 +98,25 @@ public class GraphFragment extends Fragment implements OnChartGestureListener, O
 
         // // dont forget to refresh the drawing
         // mChart.invalidate();
+        return rootView;
+    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onActivityCreated(savedInstanceState);
     }
 
     private void setData(int count, float range) {
-
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
             xVals.add((i) + "");
         }
 
+        //Values to be mapped
         ArrayList<Entry> yVals = new ArrayList<Entry>();
 
         for (int i = 0; i < count; i++) {
-
             float mult = (range + 1);
             float val = (float) (Math.random() * mult) + 3;// + (float)
             // ((mult *
@@ -176,7 +171,6 @@ public class GraphFragment extends Fragment implements OnChartGestureListener, O
         leftAxis.setStartAtZero(false);
 
         mChart.getAxisRight().setEnabled(false);
-
         // set data
         mChart.setData(data);
     }

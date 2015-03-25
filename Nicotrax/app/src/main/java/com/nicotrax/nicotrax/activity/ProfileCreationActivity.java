@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.nicotrax.nicotrax.R;
+import com.nicotrax.nicotrax.model.ParseDataManager;
 import com.nicotrax.nicotrax.util.EmailValidator;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.util.Date;
 
 public class ProfileCreationActivity extends Activity {
 
@@ -43,7 +50,7 @@ public class ProfileCreationActivity extends Activity {
     private void callOnBoarding(){
         EditText firstNameField = (EditText) findViewById(R.id.first_name);
         EditText lastNameField = (EditText) findViewById(R.id.last_name);
-        EditText dateField = (EditText) findViewById(R.id.date_field);
+        //EditText dateField = (EditText) findViewById(R.id.date_field);
         spinner1 = (Spinner) findViewById(R.id.gender_spinner);
         //System.out.println(" spinner " + String.valueOf(spinner1.getSelectedItem()));
 
@@ -64,11 +71,6 @@ public class ProfileCreationActivity extends Activity {
             lastNameField.setError(getString(R.string.validation_error_blank_lastname));
         }
 
-        // 2: Date of Birth is not empty
-        if (dateField.length() == 0) {
-            validationError = true;
-            dateField.setError(getString(R.string.validation_error_blank_dob));
-        }
 
         if(validationError){
             return;
@@ -81,6 +83,28 @@ public class ProfileCreationActivity extends Activity {
             return;
         }
         */
+
+        //Store profile data in parse  ~~! Come back to deal with date
+        ParseUser myUser = ParseUser.getCurrentUser();
+        myUser.put(ParseDataManager.USER_FIRST_NAME_FIELD, firstNameField.getText().toString());
+        myUser.put(ParseDataManager.USER_LAST_NAME_FIELD, lastNameField.getText().toString());
+        myUser.put(ParseDataManager.USER_BIRTH_DATE_FIELD, new Date());
+        //myUser.put(ParseDataManager.USER_BIRTH_DATE_FIELD, dateField.getText().toString());
+
+        boolean female = true;
+        if(String.valueOf(spinner1.getSelectedItem()).equals("Male")) {
+            female = false;
+        }
+        myUser.put(ParseDataManager.USER_GENDER_FIELD, female);
+        myUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null) {
+                    Log.i("tag", "Profile saved!");
+                } else
+                    Log.i("tag", e.getMessage());
+            }
+        });
 
         Intent intent=new Intent(getApplicationContext(),OnboardingActivity.class);
         startActivity(intent);

@@ -12,13 +12,15 @@ import android.view.ViewGroup;
 
 import com.nicotrax.nicotrax.R;
 
-
+//Shall delete later
 public class DashMainFragment extends Fragment {
     public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+        System.out.println("In DashMainFrag "+getView());
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
+        //transaction.replace(R.id.container_framelayout, fragment);
         transaction.replace(R.id.container_framelayout, fragment);
         transaction.commit();
         getChildFragmentManager().executePendingTransactions();

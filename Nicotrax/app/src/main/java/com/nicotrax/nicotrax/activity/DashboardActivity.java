@@ -3,6 +3,7 @@ package com.nicotrax.nicotrax.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -19,25 +20,31 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.nicotrax.nicotrax.PagerAdapter;
+import com.nicotrax.nicotrax.fragment.dashBoard.GraphFragment;
+import com.nicotrax.nicotrax.fragment.dashBoard.MapFragment;
+import com.nicotrax.nicotrax.fragment.dashBoard.PieFragment;
+import com.nicotrax.nicotrax.fragment.dashBoard.ProfileFragment;
 import com.parse.ParseUser;
 
 import com.nicotrax.nicotrax.fragment.NavigationDrawerFragment;
 import com.nicotrax.nicotrax.R;
-import com.nicotrax.nicotrax.fragment.dashBoard.DashMainFragment;
-import com.nicotrax.nicotrax.fragment.dashBoard.GraphContainer;
-import com.nicotrax.nicotrax.fragment.dashBoard.HexContainer;
-import com.nicotrax.nicotrax.fragment.dashBoard.MapContainer;
-import com.nicotrax.nicotrax.fragment.dashBoard.ProfileContainer;
+
+
+
+import java.util.List;
+import java.util.Vector;
 
 
 public class DashboardActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,ViewPager.OnPageChangeListener,TabHost.OnTabChangeListener {
     //Tags to associate fragments with tabs
     private static final String TAB_1_TAG = "tab_1";
     private static final String TAB_2_TAG = "tab_2";
     private static final String TAB_3_TAG = "tab_3";
     private static final String TAB_4_TAG = "tab_4";
-
+    private ViewPager mViewPager;
+    private PagerAdapter mPagerAdapter;
     private FragmentTabHost mTabHost;
 
     /**
@@ -50,13 +57,16 @@ public class DashboardActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        //Initialize all the fragments and tabs
-        initViews();
+        //Initialize all the fragments and tabHost
+        this.initViews(savedInstanceState);
+        if (savedInstanceState != null) {
+            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
+        }
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -66,6 +76,9 @@ public class DashboardActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // Intialise ViewPager
+       this.intialiseViewPager();
     }
 
     @Override
@@ -104,7 +117,6 @@ public class DashboardActivity extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -131,6 +143,22 @@ public class DashboardActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        this.mTabHost.setCurrentTab(position);
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     /**
@@ -174,45 +202,78 @@ public class DashboardActivity extends ActionBarActivity
     }
 
 
-    //Initialize all tabs and views
-    private void initViews() {
-        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+    private void intialiseViewPager() {
+        //Assign fragments to viewpager and set view pager adapter
+        List<Fragment> fragments = new Vector<Fragment>();
+        fragments.add(Fragment.instantiate(this, PieFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, GraphFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, MapFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, ProfileFragment.class.getName()));
+        this.mPagerAdapter  = new PagerAdapter(super.getSupportFragmentManager(), fragments);
+        this.mViewPager = (ViewPager)super.findViewById(R.id.viewpager);
+        this.mViewPager.setAdapter(this.mPagerAdapter);
+        this.mViewPager.setOnPageChangeListener(this);
+    }
 
+    //Manage Tabs and the viewpager
+    class TabFactory implements TabHost.TabContentFactory {
 
-        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_1_TAG),
-                R.drawable.tab_indicator_gen,"Stats",R.drawable.hex),HexContainer.class,null);
-        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_2_TAG),
-                R.drawable.tab_indicator_gen,"Graph",R.drawable.graph),GraphContainer.class,null);
-        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_3_TAG),
-                R.drawable.tab_indicator_gen,"Map",R.drawable.map),MapContainer.class,null);
-        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_4_TAG),
-                R.drawable.tab_indicator_gen,"Profile",R.drawable.profile),ProfileContainer.class,null);
+        private final Context mContext;
+
+        /**
+         * @param context
+         */
+        public TabFactory(Context context) {
+            mContext = context;
+        }
+
+        /** (non-Javadoc)
+         * @see android.widget.TabHost.TabContentFactory#createTabContent(java.lang.String)
+         */
+        public View createTabContent(String tag) {
+            View v = new View(mContext);
+            v.setMinimumWidth(0);
+            v.setMinimumHeight(0);
+            return v;
+        }
 
     }
-    //Safe exit on back press
+    //Initialize all tabs and views
+    private void initViews(Bundle args) {
+        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(),android.R.id.tabcontent);
+        //Set up the tabspec
+        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_1_TAG),
+                R.drawable.tab_indicator_gen,"Stats",R.drawable.hex),PieFragment.class,null);
+        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_2_TAG),
+                R.drawable.tab_indicator_gen,"Graph",R.drawable.graph),GraphFragment.class,null);
+        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_3_TAG),
+                R.drawable.tab_indicator_gen,"Map",R.drawable.map),MapFragment.class,null);
+        mTabHost.addTab(setIndicator(this,mTabHost.newTabSpec(TAB_4_TAG),
+                R.drawable.tab_indicator_gen,"Profile",R.drawable.profile),ProfileFragment.class,null);
+        //Handle status of the viewpager matching to the tabs
+        mTabHost.setOnTabChangedListener(this);
+
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("tab", mTabHost.getCurrentTabTag()); //save the tab selected
+        super.onSaveInstanceState(outState);
+    }
+    //Change viewpager if tab changes
+    public void onTabChanged(String tag) {
+        int pos = this.mTabHost.getCurrentTab();
+        this.mViewPager.setCurrentItem(pos);
+    }
+
+    //still work on this
+    @Override
     public void onBackPressed() {
-        boolean isPopFragment = false;
-        String currentTabTag = mTabHost.getCurrentTabTag();
-
-        System.out.println("************TabTag "+currentTabTag);
-
-        if (currentTabTag.equals(TAB_1_TAG)) {
-            isPopFragment = ((DashMainFragment)getSupportFragmentManager().findFragmentByTag(TAB_1_TAG)).popFragment();
-        }
-        else if (currentTabTag.equals(TAB_2_TAG)) {
-            isPopFragment = ((DashMainFragment)getSupportFragmentManager().findFragmentByTag(TAB_2_TAG)).popFragment();
-            System.out.println("**********isPopFragment"+isPopFragment);
-        }
-        else if (currentTabTag.equals(TAB_3_TAG)) {
-            isPopFragment = ((DashMainFragment)getSupportFragmentManager().findFragmentByTag(TAB_3_TAG)).popFragment();
-        }
-        else if (currentTabTag.equals(TAB_4_TAG)) {
-            isPopFragment = ((DashMainFragment)getSupportFragmentManager().findFragmentByTag(TAB_4_TAG)).popFragment();
-        }
-
-        if (!isPopFragment) {
-                finish();
+        System.out.println("Back pressed");
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -223,11 +284,9 @@ public class DashboardActivity extends ActionBarActivity
         v.setBackgroundResource(resid);
         TextView tv = (TextView)v.findViewById(R.id.txt_tabtxt);
         ImageView img = (ImageView)v.findViewById(R.id.img_tabtxt);
-
         tv.setText(string);
         img.setBackgroundResource(genresIcon);
         return spec.setIndicator(v);
     }
-
 
 }

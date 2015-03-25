@@ -35,7 +35,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/user_icon"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -47,7 +47,7 @@
         android:ems="10"
         android:id="@+id/first_name"
         android:background="@drawable/rounding"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true" />
 
@@ -63,20 +63,18 @@
         android:background="@drawable/rounding"
         android:layout_marginTop="20dp" />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:hint="Date of Birth"
-        android:ems="10"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/input_text_color"
-        android:id="@+id/date_field"
-        android:background="@drawable/rounding"
-        android:layout_below="@+id/last_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
-    <Spinner
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:id="@+id/birthdatePicker"
+            android:background="@drawable/rounding"
+            android:calendarViewShown="false"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.43" />
+
+        <Spinner
         android:id="@+id/gender_spinner"
         android:theme="@style/SpinnerTheme"
         android:layout_width="fill_parent"
@@ -86,7 +84,7 @@
         android:prompt="@string/gender"
         android:background="@drawable/rounding"
         android:layout_below="@+id/date_field"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_alignRight="@+id/date_field"
         android:layout_alignEnd="@+id/date_field" />
 
@@ -98,7 +96,7 @@
         android:text="Let&apos;s build your profile so that we can tailor Nicotrax to you!"
         android:id="@+id/info_msg"
         android:layout_above="@+id/started_button"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="0.14" />
 
         <Button

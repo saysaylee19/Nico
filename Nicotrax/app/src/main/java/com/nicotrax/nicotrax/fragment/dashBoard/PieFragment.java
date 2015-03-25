@@ -38,20 +38,13 @@ public class PieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View rootView=inflater.inflate(R.layout.fragment_pie, container, false);
         // Inflate the layout for this fragment
-        return rootView;
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onActivityCreated(savedInstanceState);
-        Button dec_button = (Button) getActivity().findViewById(R.id.Dec_button);
-        Button inc_button = (Button) getActivity().findViewById(R.id.Inc_button);
+        Button dec_button = (Button) rootView.findViewById(R.id.Dec_button);
+        Button inc_button = (Button) rootView.findViewById(R.id.Inc_button);
 
-        mChart = (PieChart) getActivity().findViewById(R.id.chart1);
+        mChart = (PieChart) rootView.findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
 
         // change the color of the center-hole
@@ -80,12 +73,13 @@ public class PieFragment extends Fragment {
 
         // add a selection listener
         //mChart.setOnChartValueSelectedListener(this);
-        //mChart.setTouchEnabled(false);
+        mChart.setTouchEnabled(false);
 
         //Initially Count of Cigarettes is constant as 7
         mChart.setCenterText("7");
         mChart.setCenterTextSize(30f);
-        //Since we have only two slices, count= 1 as range starts from 0
+
+        //Since we have only two slices, count= 1 as range starts from 0..currently max=20
         setData(1,7,20);
 
         mChart.animateXY(1500, 1500);
@@ -120,6 +114,16 @@ public class PieFragment extends Fragment {
             }
         });
 
+
+        return rootView;
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onActivityCreated(savedInstanceState);
+        //Initially code here
     }
     //MPChart sets data here
     private void setData(int count, float range,float total) {
@@ -149,7 +153,7 @@ public class PieFragment extends Fragment {
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        //for (int c : ColorTemplate.VORDIPLOM_COLORS)
+        /*for (int c : ColorTemplate.VORDIPLOM_COLORS)
         //    colors.add(c);
         //A1F7D3 E9E9E9
 
@@ -166,10 +170,11 @@ public class PieFragment extends Fragment {
         /*for (int c : ColorTemplate.PASTEL_COLORS) {
             System.out.println("--->color " + c);
             colors.add(c);
-        }*/
+        }
+        */
 
         Resources res=getResources();
-        colors.add(res.getColor(R.color.sea_green));
+        colors.add(res.getColor(R.color.background_color));
         colors.add(res.getColor(R.color.grey));
 
         colors.add(ColorTemplate.getHoloBlue());
@@ -234,7 +239,6 @@ public class PieFragment extends Fragment {
         mChart.setCenterText("" + count);
         setData(1,count,20);
     }
-
 
 
 }

@@ -20,6 +20,9 @@ import com.nicotrax.nicotrax.fragment.onboarding.PricePerPackQuestionFragment;
 import com.nicotrax.nicotrax.fragment.onboarding.StartSmokingQuestionFragment;
 import com.nicotrax.nicotrax.fragment.onboarding.StillSmokingQuestionFragment;
 import com.nicotrax.nicotrax.fragment.onboarding.StopSmokingQuestionFragment;
+import com.parse.ParseUser;
+import com.nicotrax.nicotrax.model.ParseDataManager;
+import java.util.Date;
 
 /**
  * Created by rickyh on 3/19/15.
@@ -39,11 +42,12 @@ public class OnboardingActivity extends FragmentActivity implements OnboardingLi
     /**
      * Fields to store user data
      */
-    private boolean stillSmoking;
-    private String startDate;
-    private String quitDate;
-    private int cigsPerDay;
-    private double pricePerPack;
+        private boolean stillSmoking;
+        private String startDate;
+        private String quitDate;
+        private int cigsPerDay;
+        private double pricePerPack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,12 +124,22 @@ public class OnboardingActivity extends FragmentActivity implements OnboardingLi
 
     private void goToDashboard() {
         //save data to Parse
-        // for now, just log it
-        Log.i("Onboarding", "Still smoking? " + stillSmoking);
-        Log.i("Onboarding", "Start date: " + startDate);
-        Log.i("Onboarding", "Cigs per day: " + cigsPerDay);
-        Log.i("Onboarding", "Price per pack: " + pricePerPack);
-        Log.i("Onboarding", "Quit date: " + quitDate);
+        ParseUser myUser = ParseUser.getCurrentUser();
+        myUser.put(ParseDataManager.USER_STILL_SMOKING_FIELD, stillSmoking);
+        //myUser.put(ParseDataManager.USER_START_DATE_FIELD, startDate);  //use date picker!
+        myUser.put(ParseDataManager.USER_START_DATE_FIELD, new Date());
+        myUser.put(ParseDataManager.USER_CIGS_PER_DAY_FIELD, cigsPerDay);
+        myUser.put(ParseDataManager.USER_PRICE_PER_PACK_FIELD, pricePerPack);
+        //myUser.put(ParseDataManager.USER_QUIT_DATE_FIELD, quitDate);  //use date picker!
+        myUser.put(ParseDataManager.USER_QUIT_DATE_FIELD, new Date());
+
+        myUser.saveInBackground();
+
+        if(myUser != null) {
+            myUser.saveInBackground();
+        } else {
+            Toast.makeText(getApplicationContext(), "Please login to update profile.", Toast.LENGTH_LONG).show();
+        }
 
         Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
         startActivity(i);
